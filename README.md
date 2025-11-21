@@ -3,7 +3,7 @@ This script creates a public/private RSA256 key pair, stores the keys in `certif
 
 ## Prerequisites
 - Copy .env.example and rename it into .env
-- populate the `CONNECTION_ID` value with the integer communicated by Pirum
+- populate the `CONNECTION_ID` value with your connection ID
 - Example: `CONNECTION_ID=1062`
 - Follow the make commands below to install the dependencies and run the script
 

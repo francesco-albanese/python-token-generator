@@ -7,7 +7,7 @@ class Settings(BaseSettings):
         env_file=".env", case_sensitive=False, extra="ignore"
     )
 
-    connection_id: int = Field(..., description="Connection ID assigned by Pirum")
+    connection_id: int = Field(..., description="Connection ID for API authentication")
 
     @field_validator("connection_id")
     @classmethod

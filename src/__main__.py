@@ -92,7 +92,7 @@ def sign_token_with_private_key(private_pem: bytes, public_pem: bytes) -> tuple[
     connection_id = str(SETTINGS.connection_id)
     # Create JWT
     payload_dict: dict[str, str | int] = {
-        "aud": "https://api.uat.pirumconnect.com",
+        "aud": "https://api.example.com",
         "exp": current_time + 5 * 60, # Token valid for 5 minutes
         "iat": current_time,
         "iss": connection_id,
@@ -111,7 +111,7 @@ def sign_token_with_private_key(private_pem: bytes, public_pem: bytes) -> tuple[
         token,
         public_pem,
         algorithms=["RS256"],
-        audience="https://api.uat.pirumconnect.com"
+        audience="https://api.example.com"
     )
     decoded_payload: JWTPayload = {
         "sub": str(decoded["sub"]),
