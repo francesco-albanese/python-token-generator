@@ -1,0 +1,12 @@
+*/*.pyc
+__pycache__
+.terraform
+tools
+.DS_Store
+report.xml
+coverage.xml
+.coverage
+local/data
+output
+src/certificates
+.env
