@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        // Python development
+        "ms-python.python", // Core Python support (debugging, linting, IntelliSense, etc.)
+        "ms-python.vscode-pylance", // Pylance for advanced type-checking and IntelliSense
+        "ms-python.isort", // Sort Python imports automatically
+        "ms-python.black-formatter", // Black formatter for code formatting
+        "ms-toolsai.jupyter", // Jupyter Notebook support for interactive mode
+        "ms-azuretools.vscode-docker", // Docker support, if you use containers for Lambda
+    ]
+}
