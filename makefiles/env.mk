@@ -20,7 +20,7 @@ install-uv:
 setup-venv:
 	@if [ ! -d ".venv" ]; then \
 		echo "Creating Python virtual environment in .venv..."; \
-		uv venv --python 3.14; \
+		uv venv --python 3.13; \
 		source .venv/bin/activate; \
 		echo "Virtual environment created at .venv"; \
 	else \

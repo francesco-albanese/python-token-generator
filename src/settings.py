@@ -1,5 +1,9 @@
+import sys
+
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from .logger import logger
 
 
 class Settings(BaseSettings):
@@ -17,4 +21,15 @@ class Settings(BaseSettings):
         return v
 
 
-SETTINGS = Settings()  # type: ignore The values are populated from environment variables or .env file
+def load_settings() -> Settings:
+    try:
+        return Settings()
+    except Exception as e:
+        logger.error(
+            "Failed to load settings",
+            extra={"error": str(e), "hint": "Copy .env.example to .env and set CONNECTION_ID"},
+        )
+        sys.exit(1)
+
+
+SETTINGS = load_settings()
