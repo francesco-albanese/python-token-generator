@@ -14,5 +14,5 @@ dev = [
   "pytest==8.4.2",
   "python-jose==3.5.0",
   "python-json-logger==4.0.0",
-  "ruff==0.13.0",
+  "ruff==0.14.6",
 ]
