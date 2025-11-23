@@ -10,3 +10,4 @@ local/data
 output
 src/certificates
 .env
+plans/

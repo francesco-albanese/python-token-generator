@@ -1,13 +1,17 @@
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
-from cryptography.hazmat.primitives import serialization
-from jose import jwt
+import base64
 import json
+import sys
 from pathlib import Path
 from time import time
 from typing import TypedDict
 from uuid import uuid4
-import base64
+
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
+from jose import jwt
+
+from .logger import logger
 from .settings import SETTINGS
 
 
@@ -124,12 +128,17 @@ def sign_token_with_private_key(private_pem: bytes, public_pem: bytes) -> tuple[
     return token, decoded_payload
 
 def main() -> None:
-    public_key_pem, private_key_pem = generate_rsa_keypair()
-    store_pems_to_files(public_key_pem, private_key_pem)
-    convert_public_key_to_jwk(public_key_pem)
-    token, decoded_payload = sign_token_with_private_key(private_key_pem, public_key_pem)
-    print(f"Encoded JWT: {token}")
-    print(f"Decoded JWT: {decoded_payload}")
+    try:
+        public_key_pem, private_key_pem = generate_rsa_keypair()
+        store_pems_to_files(public_key_pem, private_key_pem)
+        convert_public_key_to_jwk(public_key_pem)
+        token, decoded_payload = sign_token_with_private_key(private_key_pem, public_key_pem)
+        print(f"Encoded JWT: {token}")
+        print(f"Decoded JWT: {decoded_payload}")
+    except Exception as e:
+        logger.error("Token generation failed", extra={"error": str(e)})
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
