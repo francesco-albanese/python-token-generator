@@ -12,7 +12,9 @@ dev = [
   "pydantic>=2.12",
   "pydantic-settings==2.12.0",
   "pytest==9.0.1",
+  "pytest-mock>=3.14.0",
   "python-jose==3.5.0",
   "python-json-logger==4.0.0",
   "ruff==0.14.6",
+  "typer>=0.20.0",
 ]
