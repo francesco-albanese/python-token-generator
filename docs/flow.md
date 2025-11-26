@@ -31,11 +31,13 @@ flowchart TD
         M1["generate_rsa_keypair()"]
         M2["store_pems_to_files()"]
         M3["convert_public_key_to_jwk()"]
-        M4["sign_token_with_private_key()"]
+        M4["sign_token()"]
+        M5["verify_token()"]
 
         M1 --> |public_pem, private_pem| M2
         M2 --> M3
         M3 --> M4
+        M4 --> M5
     end
 
     subgraph KeyGen["RSA Key Generation"]
@@ -57,18 +59,15 @@ flowchart TD
         CERTS --> JWKS_FILE
     end
 
-    subgraph JWKConvert["JWK Conversion"]
-        LOAD_PUB["load_pem_public_key()"]
-        EXTRACT["Extract RSA numbers
-        (e, n)"]
-        B64["base64url encode"]
-        CREATE_JWK["Create JWK object"]
+    subgraph JWKConvert["JWK Conversion (python-jose)"]
+        CONSTRUCT["jwk.construct(public_pem)"]
+        TO_DICT["key.to_dict()"]
+        ADD_FIELDS["Add kid, use fields"]
         CREATE_JWKS["Wrap in JWKS"]
 
-        LOAD_PUB --> EXTRACT
-        EXTRACT --> B64
-        B64 --> CREATE_JWK
-        CREATE_JWK --> CREATE_JWKS
+        CONSTRUCT --> TO_DICT
+        TO_DICT --> ADD_FIELDS
+        ADD_FIELDS --> CREATE_JWKS
     end
 
     subgraph TokenSign["Token Signing"]
@@ -94,8 +93,9 @@ flowchart TD
     M2 -.-> Storage
     M3 -.-> JWKConvert
     M4 -.-> TokenSign
+    M5 -.-> TokenSign
 
-    JWK -.-> |type hint| CREATE_JWK
+    JWK -.-> |type hint| ADD_FIELDS
     JWKS -.-> |type hint| CREATE_JWKS
     JWTPayload -.-> |type hint| PAYLOAD
 
