@@ -18,5 +18,5 @@ help:
 .DEFAULT_GOAL := help
 
 .PHONY: generate-token
-generate-token: ## Run the token generator script
-	uv run python -m src
+generate-token: ## Run the token generator script [FORCE=1] [LOAD_ONLY=1] [OUTPUT_DIR=path]
+	uv run python -m src $(if $(FORCE),--force) $(if $(LOAD_ONLY),--load-only) $(if $(OUTPUT_DIR),--output-dir $(OUTPUT_DIR))
